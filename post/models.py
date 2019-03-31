@@ -11,7 +11,7 @@ class Post(models.Model):
     url = models.CharField(max_length=200, null=False)
     desc = models.TextField(null=False)
     thumbnail_link = models.CharField(max_length=200, null=True)
-    Tags = models.ManyToManyField(Tag, blank=True, null=True, related_name="Tags")
+    tags = models.ManyToManyField(Tag, blank=True, null=True, related_name="Tags")
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
