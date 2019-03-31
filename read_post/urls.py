@@ -17,15 +17,19 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from post import views
+from post import views as post_view
+from index import views as index_view
+from post import urls as post_url
+
 
 router = routers.DefaultRouter()
-router.register(r'post', views.PostViewSet)
-
+router.register(r'post', post_view.PostViewSet)
+router.register(r'type', post_view.TypeViewSet)
 
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^api/', include(router.urls)),
+    url(r'', include(post_url)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
 ]
