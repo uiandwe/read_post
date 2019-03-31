@@ -1,4 +1,4 @@
-from post.models import Post, Type
+from post.models import Post, Tag
 from rest_framework import serializers
 
 
@@ -8,7 +8,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class TypeSerializer(serializers.HyperlinkedModelSerializer):
+class TagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Type
+        model = Tag
         fields = '__all__'

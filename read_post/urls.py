@@ -18,13 +18,12 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from post import views as post_view
-from index import views as index_view
 from post import urls as post_url
 
 
 router = routers.DefaultRouter()
 router.register(r'post', post_view.PostViewSet)
-router.register(r'type', post_view.TypeViewSet)
+router.register(r'tag', post_view.TagViewSet)
 
 
 urlpatterns = [

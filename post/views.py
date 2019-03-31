@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import viewsets
-from post.serializers import PostSerializer, TypeSerializer
-from post.models import Post, Type
+from post.serializers import PostSerializer, TagSerializer
+from post.models import Post, Tag
 from django.http import Http404
 from django.shortcuts import render
 
@@ -12,9 +12,9 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
 
-class TypeViewSet(viewsets.ModelViewSet):
-    queryset = Type.objects.all()
-    serializer_class = TypeSerializer
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 def index_view(request):
