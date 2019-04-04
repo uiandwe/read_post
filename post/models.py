@@ -6,8 +6,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+
 class Post(models.Model):
-    post_title = models.CharField(max_length=100, null=False)
+    title = models.CharField(max_length=100, null=False)
     post_url = models.CharField(max_length=200, null=False)
     desc = models.TextField(null=False)
     thumbnail_link = models.CharField(max_length=200, null=True)

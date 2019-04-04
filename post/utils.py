@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 
-def api(request, pk=None, obj_serializer=None, model=None, serializer_context=None):
+def api(request, pk=None, obj_serializer=None, model=None):
     try:
         obj = None
         if pk:
@@ -17,10 +17,7 @@ def api(request, pk=None, obj_serializer=None, model=None, serializer_context=No
         if obj:
             serializer = obj_serializer(obj)
         else:
-            if serializer_context:
-                serializer = obj_serializer(instance=obj_list, context=serializer_context)
-            else:
-                serializer = obj_serializer(obj_list, many=True)
+            serializer = obj_serializer(obj_list, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = obj_serializer(data=request.data)
