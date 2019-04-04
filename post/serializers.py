@@ -1,6 +1,6 @@
 from post.models import Post, Tag
 from rest_framework import serializers
-
+from .constants import constant
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -43,12 +43,14 @@ class PostObjSerializer():
             "post_url": post_obj.post_url,
             "desc": post_obj.desc,
             "thumbnail_link": post_obj.thumbnail_link,
+            "url": constant["url_post"]+str(post_obj.id),
             "tags": []
         }
 
         tags = post_obj.tags.all()
         if tags:
-            self.obj["tags"] = [{"name": entry.name, "id": entry.id} for entry in tags]
+            self.obj["tags"] = [{"name": entry.name, "id": entry.id, "url": constant["url_tag"]+str(entry.id)}
+                                for entry in tags]
 
     def run(self):
         return self.obj

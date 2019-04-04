@@ -11,13 +11,18 @@ from django.http import HttpResponse
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def post_list(request, pk=None):
-    if request.method == "GET" and not pk:
-        # TODO 페이지네이션 / 검색
-        posts = Post.objects.all()
+    if request.method == "GET":
         context_dict = []
 
-        if posts:
-            context_dict = [PostObjSerializer(post).run() for post in posts]
+        if pk:
+            post = Post.objects.get(pk=pk)
+            if post:
+                context_dict = PostObjSerializer(post).run()
+        else:
+        # TODO 페이지네이션 / 검색
+            posts = Post.objects.all()
+            if posts:
+                context_dict = [PostObjSerializer(post).run() for post in posts]
 
         return HttpResponse(json.dumps({'data': context_dict}),
                             content_type='application/json; charset=utf8')
