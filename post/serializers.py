@@ -33,3 +33,22 @@ class PostSerializer(serializers.ModelSerializer):
             instance.tags.add(tag)
 
         return instance
+
+
+class PostObjSerializer():
+    def __init__(self, post_obj):
+        self.obj = {
+            "pk": post_obj.pk,
+            "title": post_obj.title,
+            "post_url": post_obj.post_url,
+            "desc": post_obj.desc,
+            "thumbnail_link": post_obj.thumbnail_link,
+            "tags": []
+        }
+
+        tags = post_obj.tags.all()
+        if tags:
+            self.obj["tags"] = [{"name": entry.name, "id": entry.id} for entry in tags]
+
+    def run(self):
+        return self.obj
