@@ -17,3 +17,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def search(self, **kwargs):
+        qs = self.get_query_set()
+        if kwargs.get('q', ''):
+            qs = qs.filter(title__icontains=kwargs['search'])
+
+        return qs

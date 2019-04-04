@@ -19,8 +19,13 @@ def post_list(request, pk=None):
             if post:
                 context_dict = PostObjSerializer(post).run()
         else:
-        # TODO 페이지네이션 / 검색
-            posts = Post.objects.all()
+            search = request.GET.get('search', None)
+            limit = request.GET.get('limit', 10)
+            offset = request.GET.get('offset', 1)
+
+            print(Post.search(search, limit, offset))
+
+            posts = Post.objects.filter()
             if posts:
                 context_dict = [PostObjSerializer(post).run() for post in posts]
 
