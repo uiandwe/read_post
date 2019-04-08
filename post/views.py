@@ -7,6 +7,8 @@ from rest_framework.request import Request
 from .utils import api as util_api
 import json
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
@@ -23,11 +25,22 @@ def post_list(request, pk=None):
             limit = request.GET.get('limit', 10)
             offset = request.GET.get('offset', 1)
 
-            print(Post.search(search, limit, offset))
+            if search:
+                posts = Post.objects.filter(Q(title__icontains=search))
+            else:
+                posts = Post.objects.all()
 
-            posts = Post.objects.filter()
             if posts:
-                context_dict = [PostObjSerializer(post).run() for post in posts]
+                paginator = Paginator(posts, limit)
+
+                try:
+                    pages = paginator.page(offset)
+                except PageNotAnInteger:
+                    pages = paginator.page(1)
+                except EmptyPage:
+                    pages = paginator.page(paginator.num_pages)
+
+                context_dict = [PostObjSerializer(post).run() for post in pages]
 
         return HttpResponse(json.dumps({'data': context_dict}),
                             content_type='application/json; charset=utf8')
