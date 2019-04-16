@@ -2,6 +2,7 @@ from post.models import Post, Tag
 from rest_framework import serializers
 from .constants import constant
 
+
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag

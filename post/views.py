@@ -1,14 +1,14 @@
-from post.serializers import PostSerializer, TagSerializer, PostObjSerializer
-from post.models import Post, Tag
-from django.shortcuts import render
-from rest_framework.decorators import api_view
-from rest_framework.test import APIRequestFactory
-from rest_framework.request import Request
-from .utils import api as util_api
 import json
-from django.http import HttpResponse
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.http import HttpResponse
+from django.shortcuts import render
+from rest_framework.decorators import api_view
+
+from post.models import Post, Tag
+from post.serializers import PostSerializer, TagSerializer, PostObjSerializer
+from .utils import api as util_api
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
